@@ -1,3 +1,5 @@
+import 'package:budget_planner/amount.dart';
+
 import './transaction.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -45,10 +47,9 @@ class BudgetPlannerEntry extends StatelessWidget {
                   child: Row(
                     children: <Widget>[
                       Container(
-                        child: Text(
-                          tx.amount.toString(),
-                        ),
-                      ),
+                          child: Amount(
+                        amountValue: tx.amount.toString(),
+                      )),
                       Column(
                         children: <Widget>[
                           Container(
