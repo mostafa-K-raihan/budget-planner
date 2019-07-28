@@ -4,6 +4,8 @@ import './transaction.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'package:intl/intl.dart';
+
 void main() => runApp(BudgetPlannerEntry());
 
 class BudgetPlannerEntry extends StatelessWidget {
@@ -19,6 +21,13 @@ class BudgetPlannerEntry extends StatelessWidget {
     new Transaction(
         id: 5, amount: 39.99, title: "New Shoe 5", date: DateTime.now()),
   ];
+
+  // String title;
+  // String amount;
+
+  final titleController = TextEditingController();
+  final amountController = TextEditingController();
+
   @override
   Widget build(BuildContext ctx) {
     return MaterialApp(
@@ -29,14 +38,42 @@ class BudgetPlannerEntry extends StatelessWidget {
           ),
         ),
         body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Container(
               width: double.infinity,
-              color: Colors.blueGrey,
               child: Card(
                 child: Text("Chart"),
+                
+                elevation: 10,
+              ),
+            ),
+            Card(
+              elevation: 10,
+              child: Container(
+                padding: EdgeInsets.all(15),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: <Widget>[
+                    TextField(
+                      decoration: InputDecoration(labelText: "Title"),
+                      controller: titleController,
+                      // onChanged: (val)=>title=val,
+                    ),
+                    TextField(
+                      decoration: InputDecoration(labelText: "Amount"),
+                      // onChanged: (val)=>amount=val,
+                      controller: amountController,
+                    ),
+                    FlatButton(
+                      child: Text('Add Transaction'),
+                      textColor: Colors.purple,
+                      onPressed: ()  {
+                       print(titleController.text)
+                      },
+                    )
+                  ],
+                ),
               ),
             ),
             Column(
@@ -44,27 +81,24 @@ class BudgetPlannerEntry extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: transactions.map((tx) {
                 return Card(
+                  elevation: 10,
                   child: Row(
                     children: <Widget>[
                       Container(
                           child: Amount(
-                        amountValue: tx.amount.toString(),
+                        amountValue: '\$ ${tx.amount}',
                       )),
                       Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Container(
                             child: Text(tx.title),
-                            margin: EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 15),
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                color: Colors.deepOrange,
-                                width: 2,
-                              ),
-                            ),
-                            padding: EdgeInsets.all(2),
                           ),
-                          Container(child: Text(tx.date.toString())),
+                          Container(
+                            child: Text(
+                              DateFormat.yMMMd().format(tx.date),
+                            ),
+                          ),
                         ],
                       )
                     ],
