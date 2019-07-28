@@ -1,10 +1,11 @@
-import 'package:budget_planner/amount.dart';
+import './widgets/userInput.dart';
+import './models/transaction.dart';
+import './widgets/transactionWidget.dart';
+import './widgets/chartWidget.dart';
 
-import './transaction.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'package:intl/intl.dart';
+
 
 void main() => runApp(BudgetPlannerEntry());
 
@@ -40,75 +41,13 @@ class BudgetPlannerEntry extends StatelessWidget {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Container(
-              width: double.infinity,
-              child: Card(
-                child: Text("Chart"),
-                
-                elevation: 10,
-              ),
-            ),
-            Card(
-              elevation: 10,
-              child: Container(
-                padding: EdgeInsets.all(15),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: <Widget>[
-                    TextField(
-                      decoration: InputDecoration(labelText: "Title"),
-                      controller: titleController,
-                      // onChanged: (val)=>title=val,
-                    ),
-                    TextField(
-                      decoration: InputDecoration(labelText: "Amount"),
-                      // onChanged: (val)=>amount=val,
-                      controller: amountController,
-                    ),
-                    FlatButton(
-                      child: Text('Add Transaction'),
-                      textColor: Colors.purple,
-                      onPressed: ()  {
-                       print(titleController.text)
-                      },
-                    )
-                  ],
-                ),
-              ),
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: transactions.map((tx) {
-                return Card(
-                  elevation: 10,
-                  child: Row(
-                    children: <Widget>[
-                      Container(
-                          child: Amount(
-                        amountValue: '\$ ${tx.amount}',
-                      )),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Container(
-                            child: Text(tx.title),
-                          ),
-                          Container(
-                            child: Text(
-                              DateFormat.yMMMd().format(tx.date),
-                            ),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                );
-              }).toList(),
-            )
+            ChartWidget(),
+            UserInput(titleController: titleController, amountController: amountController),
+            TransactionWidget(transactions: transactions)
           ],
         ),
       ),
     );
   }
 }
+
