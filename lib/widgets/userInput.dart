@@ -1,14 +1,13 @@
+import 'package:budget_planner/widgets/user_transaction.dart';
 import 'package:flutter/material.dart';
 
 class UserInput extends StatelessWidget {
-  const UserInput({
-    Key key,
-    @required this.titleController,
-    @required this.amountController,
-  }) : super(key: key);
+  
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _amountController = TextEditingController();
 
-  final TextEditingController titleController;
-  final TextEditingController amountController;
+  final Function _addTx;
+  UserInput(this._addTx);
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +32,7 @@ class UserInput extends StatelessWidget {
             child: Text('Add Transaction'),
             textColor: Colors.purple,
             onPressed: ()  {
-             print(titleController.text);
+             _addTx(_titleController.text, double.parse(_amountController.text));
             },
           );
   }
@@ -42,14 +41,14 @@ class UserInput extends StatelessWidget {
     return TextField(
             decoration: InputDecoration(labelText: "Amount"),
             // onChanged: (val)=>amount=val,
-            controller: amountController,
+            controller: _amountController,
           );
   }
 
   TextField getTitleField() {
     return TextField(
             decoration: InputDecoration(labelText: "Title"),
-            controller: titleController,
+            controller: _titleController,
             // onChanged: (val)=>title=val,
           );
   }

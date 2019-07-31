@@ -6,19 +6,16 @@ import 'package:intl/intl.dart';
 
 
 class TransactionWidget extends StatelessWidget {
-  const TransactionWidget({
-    Key key,
-    @required this.transactions,
-  }) : super(key: key);
-
-  final List<Transaction> transactions;
+  
+  final List<Transaction> _transactions;
+  TransactionWidget(this._transactions);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
-      children: transactions.map((tx) {
+      children: _transactions.map((tx) {
         return getTransactionCard(tx);
       }).toList(),
     );
