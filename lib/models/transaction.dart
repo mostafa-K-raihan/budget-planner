@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 
 class Transaction {
   @required
-  int id;
+  String id;
   @required
   String title;
   @required

@@ -1,4 +1,4 @@
-import './widgets/user_transaction.dart';
+import './widgets/user_transactions.dart';
 import './widgets/chartWidget.dart';
 
 import 'package:flutter/material.dart';
@@ -19,18 +19,14 @@ class BudgetPlannerEntry extends StatelessWidget {
           ),
         ),
         body: Container(
-          height: 500,
-          child: SingleChildScrollView(
-                    child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                ChartWidget(),
-                UserTransaction(),
-              ],
-            ),
+          height: 800,
+          child: ListView(
+            children: <Widget>[
+              ChartWidget(),
+              UserTransactions(),
+            ],
           ),
-        )
-        ,
+        ),
       ),
     );
   }
